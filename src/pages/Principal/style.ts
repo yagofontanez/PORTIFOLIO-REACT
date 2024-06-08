@@ -9,7 +9,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
   justify-content: flex-end;
   background: url(${backgroundLogin});
@@ -36,7 +36,7 @@ export const Container = styled.div`
     color: white;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 10px;
     backdrop-filter: blur(15px);
   }
@@ -84,7 +84,35 @@ export const Container = styled.div`
     backdrop-filter: blur(15px);
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 8px;
+    padding: 2.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.folders {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.6rem;
+    width: 100%;
   }
+
+.icons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 3rem;
+    grid-row-gap: 6.5rem;
+}
+
+.container-language {
+    transition: 0.3s ease;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
 
   .modal-enter {
     animation: throwIn 0.5s ease-out forwards;
@@ -115,4 +143,26 @@ export const Container = styled.div`
       opacity: 0;
     }
   }
+
+  #checkbox-input {
+  display: none;
+}
+
+.switch {
+  width: fit-content;
+  padding: 10px;
+  border-radius: 50px;
+  z-index: 1;
+  cursor: pointer;
+  display: flex;
+  transition: all 0.7s;
+  background: linear-gradient(rgb(186, 66, 255) 35%, rgb(0, 225, 255));
+  box-shadow: 0px 0px 200px rgb(186, 66, 255);
+}
+
+#checkbox-input:checked + .switch {
+ background-color: rgb(46, 46, 46);
+  box-shadow: none;
+}
+
 `;
