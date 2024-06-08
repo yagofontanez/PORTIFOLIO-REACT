@@ -36,8 +36,15 @@ export const Photo = styled.div`
   gap: 2rem;
 
   .text-login {
-    font-size: 22px;
+    font-size: 16px;
     color: white;
-    font-weight: 600;
+    font-weight: 300;
+  }
+
+
+  .title-text {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
   }
 `;

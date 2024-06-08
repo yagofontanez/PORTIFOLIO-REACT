@@ -88,6 +88,7 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: -15px;
 }
 
 .folders {
@@ -156,8 +157,8 @@ export const Container = styled.div`
   cursor: pointer;
   display: flex;
   transition: all 0.7s;
-  background: linear-gradient(rgb(186, 66, 255) 35%, rgb(0, 225, 255));
-  box-shadow: 0px 0px 200px rgb(186, 66, 255);
+  background: #fff;
+  box-shadow: 0px 0px 200px #fff;
 }
 
 #checkbox-input:checked + .switch {

@@ -9,8 +9,8 @@ const Loading: React.FC = () => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigate('/home');
-        }, 2000);
+            navigate('/home', { state: { username } });
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, [navigate]);
