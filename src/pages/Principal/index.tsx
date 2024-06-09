@@ -3,46 +3,56 @@ import { CSSTransition } from 'react-transition-group';
 import { Container } from './style';
 import ButtonAction from '../../components/ButtonAction';
 import ModalProjects from '../../components/ModalProjects';
+import ModalExperiencias from '../../components/ModalExperiencias';
+import ModalSkills from '../../components/ModalSkills';
+import ModalGraduation from '../../components/ModalGraduation';
+import ModalCV from '../../components/ModalCV';
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import ModalContact from '../../components/ModalContact';
 
 const Principal: React.FC = () => {
-    const [openModal, setOpenModal] = useState(false);
-    const [openProjects, setOpenProjects] = useState(false);
+    const [openSection, setOpenSection] = useState('');
+    const [showCV, setShowCV] = useState(false);
     const location = useLocation();
     const { username } = (location.state as { username: string }) || { username: 'Usuário' };
     const dateToday = JSON.stringify(new Date());
     const parsedDate = new Date(JSON.parse(dateToday));
     const formatedDate = moment(parsedDate).format('DD-MM-YYYY').replace(/-/g, '/');
 
+    const handleOpenSection = (section: any) => {
+        if (openSection === section) {
+            setOpenSection('');
+        } else {
+            setOpenSection(section);
+        }
+    };
+
 
     const navigate = useNavigate();
 
-    const handleOpenModal = () => {
-        setOpenModal(!openModal);
-        setOpenProjects(false);
-    }
+    const handleOpenModal = () => handleOpenSection('modal');
+    const handleOpenProjetos = () => handleOpenSection('projects');
+    const handleOpenExperiencias = () => handleOpenSection('experiences');
+    const handleOpenSkills = () => handleOpenSection('skills');
+    const handleOpenFormacao = () => handleOpenSection('graduation');
+    const handleOpenContato = () => handleOpenSection('contact');
 
-    const handleOpenProjetos = () => {
-        setOpenModal(false);
-        setOpenProjects(true);
-    };
-    const handleOpenExperiencias = () => {
-        setOpenModal(false);
-    };
-    const handleOpenSkills = () => {
-        setOpenModal(false);
-    };
-    const handleOpenFormacao = () => {
-        setOpenModal(false);
-    };
-    const handleOpenContato = () => {
-        setOpenModal(false);
-    };
+    const openModal = openSection === 'modal';
+    const openProjects = openSection === 'projects';
+    const openExperiences = openSection === 'experiences';
+    const openSkills = openSection === 'skills';
+    const openGraduation = openSection === 'graduation';
+    const openContact = openSection === 'contact';
 
     const handleReturnLogin = () => {
         navigate('/');
     };
+
+    const handleShowCV = () => {
+        setOpenSection('');
+        setShowCV(true);
+    }
 
     return (
         <Container>
@@ -93,8 +103,23 @@ const Principal: React.FC = () => {
                         </div>
                     </div>
                 </CSSTransition>
+                {showCV && (
+                    <ModalCV />
+                )};
                 {openProjects && (
                     <ModalProjects />
+                )};
+                {openExperiences && (
+                    <ModalExperiencias />
+                )};
+                {openSkills && (
+                    <ModalSkills />
+                )};
+                {openGraduation && (
+                    <ModalGraduation />
+                )};
+                {openContact && (
+                    <ModalContact onClick={handleShowCV} />
                 )};
                 <div className='navbar'>
                     <label className="hamburger">

@@ -21,7 +21,7 @@ const Loading: React.FC = () => {
                 <div className="spinner1"></div>
             </div>
             <div>
-                <p className='bem-vindo'>Bem vindo, {username}</p>
+                <p className='bem-vindo'>Bem vindo(a), {username}</p>
             </div>
         </Container>
     );
