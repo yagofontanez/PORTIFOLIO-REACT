@@ -47,4 +47,8 @@ export const Photo = styled.div`
     font-size: 18px;
     font-weight: 500;
   }
+
+  .error-text {
+    color: #cc0e0e;
+  }
 `;

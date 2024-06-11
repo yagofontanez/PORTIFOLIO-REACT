@@ -8,20 +8,38 @@ import LoginArrow from '../../components/LoginArrow';
 const Login: React.FC = () => {
     const [showLogin, setShowLogin] = useState(false);
     const [username, setUsername] = useState('');
+    const [showError, setShowError] = useState(false);
 
     const navigate = useNavigate();
 
     const handleClickButton = () => {
         setShowLogin(!showLogin);
-    }
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
-    }
+        if (showError) {
+            setShowError(false);
+        }
+    };
 
     const handleLogin = () => {
-        navigate('/loading', { state: { username } });
-    }
+        if (username.trim() !== '') {
+            navigate('/loading', { state: { username } });
+        } else {
+            setShowError(true);
+        }
+    };
+
+    const keyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            if (username.trim() !== '') {
+                navigate('/loading', { state: { username } });
+            } else {
+                setShowError(true);
+            }
+        }
+    };
 
     return (
         <Container>
@@ -36,9 +54,12 @@ const Login: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}>
-                    <LoginInput onChange={handleInputChange} />
+                    <LoginInput onKeyDown={keyPress} onChange={handleInputChange} />
                     <LoginArrow onClick={handleLogin} />
                 </div>
+                {showError && (
+                    <p className='error-text'>Por favor, digite um nome de usuário.</p>
+                )}
             </Photo>
         </Container>
     );

@@ -10,21 +10,25 @@ import ModalCV from '../../components/ModalCV';
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import ModalContact from '../../components/ModalContact';
+import ModalWallpaper from '../../components/ModalWallpaper';
 
 const Principal: React.FC = () => {
     const [openSection, setOpenSection] = useState('');
     const [showCV, setShowCV] = useState(false);
+    const [showWallpaper, setShowWallpaper] = useState(false);
     const location = useLocation();
     const { username } = (location.state as { username: string }) || { username: 'Usuário' };
     const dateToday = JSON.stringify(new Date());
     const parsedDate = new Date(JSON.parse(dateToday));
     const formatedDate = moment(parsedDate).format('DD-MM-YYYY').replace(/-/g, '/');
 
-    const handleOpenSection = (section: any) => {
+    const handleOpenSection = (section: React.HTMLInputTypeAttribute) => {
         if (openSection === section) {
             setOpenSection('');
         } else {
             setOpenSection(section);
+            setShowWallpaper(false);
+            setShowCV(false);
         }
     };
 
@@ -52,6 +56,13 @@ const Principal: React.FC = () => {
     const handleShowCV = () => {
         setOpenSection('');
         setShowCV(true);
+        setShowWallpaper(false);
+    }
+
+    const handleShowChangeWallpaper = () => {
+        setOpenSection('');
+        setShowCV(false);
+        setShowWallpaper(true);
     }
 
     return (
@@ -121,6 +132,9 @@ const Principal: React.FC = () => {
                 {openContact && (
                     <ModalContact onClick={handleShowCV} />
                 )};
+                {showWallpaper && (
+                    <ModalWallpaper />
+                )};
                 <div className='navbar'>
                     <label className="hamburger">
                         <input onClick={handleOpenModal} checked={openModal ? true : false} type="checkbox" />
@@ -135,6 +149,10 @@ const Principal: React.FC = () => {
                         justifyContent: 'center',
                         gap: '2rem',
                     }}>
+                        <div className="tooltip">
+                            <button onClick={handleShowChangeWallpaper}>☰</button>
+                            <div className="tooltiptext">Trocar Wallpaper</div>
+                        </div>
                         <div className="logoff" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem' }}>
                             <p style={{ fontWeight: '300' }}>{username}</p>
                             <p style={{ fontWeight: '300' }}>{formatedDate}</p>
