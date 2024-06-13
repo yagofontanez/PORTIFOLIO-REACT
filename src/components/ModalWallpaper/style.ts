@@ -6,12 +6,29 @@ export const Container = styled.div`
     border-radius: 8px;
     margin: 0 auto;
     height: 85vh;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10rem;
+    gap: 4rem;
     padding: 2rem;
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .container-examples-wpp {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .container-examples-wpp img {
+        border-radius: 15px;
+        transition: 0.4s ease;
+    
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
 `;

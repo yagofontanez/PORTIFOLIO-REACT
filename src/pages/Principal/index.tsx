@@ -11,16 +11,21 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import ModalContact from '../../components/ModalContact';
 import ModalWallpaper from '../../components/ModalWallpaper';
+import defaultBg from "../../assets/backgroundLogin.png";
 
 const Principal: React.FC = () => {
     const [openSection, setOpenSection] = useState('');
     const [showCV, setShowCV] = useState(false);
     const [showWallpaper, setShowWallpaper] = useState(false);
+    const [background, setBackground] = useState<string>(defaultBg);
+    const [changeLanguage, setChangeLanguage] = useState(false);
+    const [language, setLanguage] = useState('PT-BR');
     const location = useLocation();
     const { username } = (location.state as { username: string }) || { username: 'Usuário' };
     const dateToday = JSON.stringify(new Date());
     const parsedDate = new Date(JSON.parse(dateToday));
     const formatedDate = moment(parsedDate).format('DD-MM-YYYY').replace(/-/g, '/');
+    const formatedDateEUA = moment(parsedDate).format('MM-DD-YYYY').replace(/-/g, '/');
 
     const handleOpenSection = (section: React.HTMLInputTypeAttribute) => {
         if (openSection === section) {
@@ -31,7 +36,6 @@ const Principal: React.FC = () => {
             setShowCV(false);
         }
     };
-
 
     const navigate = useNavigate();
 
@@ -62,11 +66,22 @@ const Principal: React.FC = () => {
     const handleShowChangeWallpaper = () => {
         setOpenSection('');
         setShowCV(false);
-        setShowWallpaper(true);
+        setShowWallpaper(!showWallpaper);
     }
 
+    const handleSelectWallpaper = (src: string) => {
+        setBackground(src);
+        setShowWallpaper(false);
+    }
+
+    const handleChangeLanguage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setLanguage(event.target.value);
+        setChangeLanguage(false);
+    }
+
+
     return (
-        <Container>
+        <Container background={background}>
             <div className='principal-container'>
                 <CSSTransition
                     in={openModal}
@@ -77,19 +92,19 @@ const Principal: React.FC = () => {
                     <div className='modal-navbar'>
                         <div className="folders">
                             <div className='folder-1'>
-                                <ButtonAction nome={'Projetos'} onClick={handleOpenProjetos} />
+                                <ButtonAction nome={language === 'PT-BR' ? 'Projetos' : 'Projects'} onClick={handleOpenProjetos} />
                             </div>
                             <div className='folder-2'>
-                                <ButtonAction nome={'Experiências'} onClick={handleOpenExperiencias} />
+                                <ButtonAction nome={language === 'PT-BR' ? 'Experiências' : 'Career'} onClick={handleOpenExperiencias} />
                             </div>
                             <div className='folder-3'>
                                 <ButtonAction nome={'Skills'} onClick={handleOpenSkills} />
                             </div>
                             <div className='folder-4'>
-                                <ButtonAction nome={'Formação'} onClick={handleOpenFormacao} />
+                                <ButtonAction nome={language === 'PT-BR' ? 'Formação' : 'Graduation'} onClick={handleOpenFormacao} />
                             </div>
                             <div className='folder-5'>
-                                <ButtonAction nome={'Contato'} onClick={handleOpenContato} />
+                                <ButtonAction nome={language === 'PT-BR' ? 'Contato' : 'Contact'} onClick={handleOpenContato} />
                             </div>
                         </div>
                         <div className="icons">
@@ -116,25 +131,25 @@ const Principal: React.FC = () => {
                 </CSSTransition>
                 {showCV && (
                     <ModalCV />
-                )};
+                )}
                 {openProjects && (
                     <ModalProjects />
-                )};
+                )}
                 {openExperiences && (
                     <ModalExperiencias />
-                )};
+                )}
                 {openSkills && (
                     <ModalSkills />
-                )};
+                )}
                 {openGraduation && (
                     <ModalGraduation />
-                )};
+                )}
                 {openContact && (
                     <ModalContact onClick={handleShowCV} />
-                )};
+                )}
                 {showWallpaper && (
-                    <ModalWallpaper />
-                )};
+                    <ModalWallpaper onSelect={handleSelectWallpaper} />
+                )}
                 <div className='navbar'>
                     <label className="hamburger">
                         <input onClick={handleOpenModal} checked={openModal ? true : false} type="checkbox" />
@@ -149,13 +164,44 @@ const Principal: React.FC = () => {
                         justifyContent: 'center',
                         gap: '2rem',
                     }}>
-                        <div className="tooltip">
-                            <button onClick={handleShowChangeWallpaper}>☰</button>
-                            <div className="tooltiptext">Trocar Wallpaper</div>
+                        {changeLanguage && (
+                            <form className="radio-form">
+                                <input
+                                    checked={language === 'PT-BR'}
+                                    value="PT-BR"
+                                    name="language"
+                                    type="radio"
+                                    id="ptbr"
+                                    onChange={handleChangeLanguage}
+                                />
+                                <label htmlFor="ptbr"><span></span>PT-BR</label>
+                                <input
+                                    checked={language === 'EN'}
+                                    value="EN"
+                                    name="language"
+                                    type="radio"
+                                    id="en"
+                                    onChange={handleChangeLanguage}
+                                />
+                                <label htmlFor="en"><span></span>EUA</label>
+                                <div className="worm">
+                                    <div className="worm__segment"></div>
+                                </div>
+                            </form>
+                        )}
+                        <div className="container-tooltips">
+                            <div className="tooltip">
+                                <button onClick={() => setChangeLanguage(!changeLanguage)}>☰</button>
+                                <div className="tooltiptext">{language === 'PT-BR' ? 'Trocar Linguagem' : 'Change Language'}</div>
+                            </div>
+                            <div className="tooltip">
+                                <button onClick={handleShowChangeWallpaper}>☰</button>
+                                <div className="tooltiptext">{language === 'PT-BR' ? 'Trocar Wallpaper' : 'Change Wallpaper'}</div>
+                            </div>
                         </div>
                         <div className="logoff" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem' }}>
                             <p style={{ fontWeight: '300' }}>{username}</p>
-                            <p style={{ fontWeight: '300' }}>{formatedDate}</p>
+                            <p style={{ fontWeight: '300' }}>{language === 'PT-BR' ? formatedDate : formatedDateEUA}</p>
                         </div>
                         <div>
                             <input onClick={handleReturnLogin} id="checkbox-input" type="checkbox" />
