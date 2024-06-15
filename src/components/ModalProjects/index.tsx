@@ -6,27 +6,31 @@ import fotoTres from '../../assets/proj_4.jpg';
 import fotoQuatro from '../../assets/proj_5.jpg';
 import { GoLinkExternal } from 'react-icons/go';
 
-const ModalProjects: React.FC = () => {
+interface ModalProjectsProps {
+    language: string;
+}
+
+const ModalProjects: React.FC<ModalProjectsProps> = ({ language }) => {
     return (
         <Container>
             <div className='container-project'>
                 <img src={fotoUm} width={250} style={{borderRadius: '8px'}} />
                 <a target='_blank' href='https://previssdotempo.netlify.app' className="name-and-link">
-                    <p>Previsão do Tempo</p>
+                    <p>{language === 'PT-BR' ? 'Previsão do Tempo' : 'Wheater Forecast'}</p>
                     <GoLinkExternal />
                 </a>
             </div>
             <div className='container-project'>
                 <img src={fotoDois} width={250} style={{borderRadius: '8px'}} />
                 <a target='_blank' href='https://calcsimc.netlify.app' className="name-and-link">
-                    <p>Calculadora IMC</p>
+                    <p>{language === 'PT-BR' ? 'Calculadora IMC' : 'BMI Calculator'}</p>
                     <GoLinkExternal />
                 </a>
             </div>
             <div className='container-project'>
                 <img src={fotoTres} width={250} style={{borderRadius: '8px'}} />
                 <a target='_blank' href='https://testenexaas-frontend.netlify.app' className="name-and-link">
-                    <p>Listagem por API</p>
+                    <p>{language === 'PT-BR' ? 'Listagem por API' : 'Listing by API'}</p>
                     <GoLinkExternal />
                 </a>
             </div>

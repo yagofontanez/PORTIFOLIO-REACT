@@ -48,7 +48,7 @@ const Login: React.FC = () => {
                     <h1 className='title-text'>Portifólio - Yago Fontanez</h1>
                 </div>
                 <LoginButton onClick={handleClickButton} />
-                <p className='text-login'>Por favor, inicie sua <span>sessão</span></p>
+                <p className='text-login'>Por favor, inicie sua sessão</p>
                 <div style={{
                     display: showLogin ? 'flex' : 'none',
                     alignItems: 'center',

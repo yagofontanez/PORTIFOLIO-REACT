@@ -13,6 +13,7 @@ import ModalContact from '../../components/ModalContact';
 import ModalWallpaper from '../../components/ModalWallpaper';
 import defaultBg from "../../assets/backgroundLogin.png";
 
+
 const Principal: React.FC = () => {
     const [openSection, setOpenSection] = useState('');
     const [showCV, setShowCV] = useState(false);
@@ -79,6 +80,16 @@ const Principal: React.FC = () => {
         setChangeLanguage(false);
     }
 
+    const handleFileSelect = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            if (e.target?.result) {
+                setBackground(e.target.result as string);
+                setShowWallpaper(false);
+            }
+        };
+        reader.readAsDataURL(file);
+    }
 
     return (
         <Container background={background}>
@@ -133,22 +144,22 @@ const Principal: React.FC = () => {
                     <ModalCV />
                 )}
                 {openProjects && (
-                    <ModalProjects />
+                    <ModalProjects language={language} />
                 )}
                 {openExperiences && (
-                    <ModalExperiencias />
+                    <ModalExperiencias language={language} />
                 )}
                 {openSkills && (
-                    <ModalSkills />
+                    <ModalSkills language={language} />
                 )}
                 {openGraduation && (
-                    <ModalGraduation />
+                    <ModalGraduation language={language} />
                 )}
                 {openContact && (
-                    <ModalContact onClick={handleShowCV} />
+                    <ModalContact onClick={handleShowCV} language={language} />
                 )}
                 {showWallpaper && (
-                    <ModalWallpaper onSelect={handleSelectWallpaper} />
+                    <ModalWallpaper onSelect={handleSelectWallpaper} srcFile={handleFileSelect} language={language} />
                 )}
                 <div className='navbar'>
                     <label className="hamburger">
@@ -183,7 +194,7 @@ const Principal: React.FC = () => {
                                     id="en"
                                     onChange={handleChangeLanguage}
                                 />
-                                <label htmlFor="en"><span></span>EUA</label>
+                                <label htmlFor="en"><span></span>EN</label>
                                 <div className="worm">
                                     <div className="worm__segment"></div>
                                 </div>

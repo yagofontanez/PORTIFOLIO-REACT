@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { Container } from './style';
 import { IoIosArrowDown } from 'react-icons/io';
 
-const ModalSkills: React.FC = () => {
+interface ModalSkillsProps {
+    language: string;
+}
+
+const ModalSkills: React.FC<ModalSkillsProps> = ({ language }) => {
 
     const [showLanguages, setShowLanguage] = useState(false);
     const [showMobile, setShowMobile] = useState(false);
@@ -29,25 +33,27 @@ const ModalSkills: React.FC = () => {
     return (
         <Container>
             <div className='conainer-skills'>
-                <h1>Soft Skills</h1>
+                <h1>{language === 'PT-BR' ? 'Soft Skills' : 'Soft Skills'}</h1>
                 <div className='skills'>
                     <ul>
-                        <li>Trabalho em equipe</li>
-                        <li>Proatividade</li>
-                        <li>Foco</li>
-                        <li>Força de vontade</li>
-                        <li>Habilidade em solucionar problemas facilmente</li>
+                        <li>{language === 'PT-BR' ? 'Trabalho em equipe' : 'Teamwork'}</li>
+                        <li>{language === 'PT-BR' ? 'Proatividade' : 'Proactivity'}</li>
+                        <li>{language === 'PT-BR' ? 'Foco' : 'Focus'}</li>
+                        <li>{language === 'PT-BR' ? 'Força de vontade' : 'Willpower'}</li>
+                        <li>{language === 'PT-BR' ? 'Habilidade em solucionar problemas facilmente' : 'Problem-solving skills'}</li>
                     </ul>
                 </div>
             </div>
             <div className='conainer-skills'>
-                <h1>Hard Skills</h1>
+                <h1>{language === 'PT-BR' ? 'Hard Skills' : 'Hard Skills'}</h1>
                 <div className='skills'>
                     <ul className='ul'>
-                        <li>Lógica de Programação</li>
+                        <li>{language === 'PT-BR' ? 'Lógica de Programação' : 'Programming Logic'}</li>
                         <div className="li-arrow" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                             <IoIosArrowDown style={{color: 'rebeccapurple'}} />
-                            <li onClick={handleShowLanguages} style={{ color: 'rebeccapurple', cursor: 'pointer', listStyle: 'none' }}>Desenvolvimento Web</li>
+                            <li onClick={handleShowLanguages} style={{ color: 'rebeccapurple', cursor: 'pointer', listStyle: 'none' }}>
+                                {language === 'PT-BR' ? 'Desenvolvimento Web' : 'Web Development'}
+                            </li>
                         </div>
                         <div style={{ display: showLanguages ? 'flex' : 'none', flexDirection: 'column' }} className="container-languages">
                             <p style={{ marginLeft: '1rem', fontSize: '12px' }}>React</p>
@@ -59,7 +65,9 @@ const ModalSkills: React.FC = () => {
                         </div>
                         <div className="li-arrow" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                             <IoIosArrowDown style={{color: 'rebeccapurple'}} />
-                            <li style={{ color: 'rebeccapurple', cursor: 'pointer', listStyle: 'none' }} onClick={handleShowMobile}>Desenvolvimento Mobile</li>
+                            <li style={{ color: 'rebeccapurple', cursor: 'pointer', listStyle: 'none' }} onClick={handleShowMobile}>
+                                {language === 'PT-BR' ? 'Desenvolvimento Mobile' : 'Mobile Development'}
+                            </li>
                         </div>
                         <div style={{ display: showMobile ? 'flex' : 'none', flexDirection: 'column' }} className="container-show-languages-mobile">
                             <p style={{ marginLeft: '1rem', fontSize: '12px' }}>React Native</p>
@@ -68,7 +76,9 @@ const ModalSkills: React.FC = () => {
                         <li>Landing Pages</li>
                         <div className="li-arrow" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                             <IoIosArrowDown style={{color: 'rebeccapurple'}} />
-                            <li style={{ color: 'rebeccapurple', cursor: 'pointer', listStyle: 'none' }} onClick={handleShowDb}>Banco de dados relacional</li>
+                            <li style={{ color: 'rebeccapurple', cursor: 'pointer', listStyle: 'none' }} onClick={handleShowDb}>
+                                {language === 'PT-BR' ? 'Banco de dados relacional' : 'Relational Database'}
+                            </li>
                         </div>
                         <div style={{ display: showDb ? 'flex' : 'none', flexDirection: 'column' }} className="container-show-db">
                             <p style={{ marginLeft: '1rem', fontSize: '12px' }}>MySQL</p>

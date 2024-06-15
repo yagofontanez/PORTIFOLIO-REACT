@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { Container } from './style';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Loading: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { username } = (location.state as { username: string }) || { username: 'Usuário' };
+    const { t } = useTranslation();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -13,7 +15,7 @@ const Loading: React.FC = () => {
         }, 3000);
 
         return () => clearTimeout(timer);
-    }, [navigate]);
+    }, [navigate, username]);
 
     return (
         <Container>
@@ -21,7 +23,7 @@ const Loading: React.FC = () => {
                 <div className="spinner1"></div>
             </div>
             <div>
-                <p className='bem-vindo'>Bem vindo(a), {username}</p>
+                <p className='bem-vindo'>{t('Bem vindo(a)')}, {username}</p>
             </div>
         </Container>
     );
