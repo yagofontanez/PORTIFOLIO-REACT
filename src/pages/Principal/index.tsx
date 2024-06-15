@@ -141,7 +141,7 @@ const Principal: React.FC = () => {
                     </div>
                 </CSSTransition>
                 {showCV && (
-                    <ModalCV />
+                    <ModalCV language={language} />
                 )}
                 {openProjects && (
                     <ModalProjects language={language} />

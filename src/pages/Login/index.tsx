@@ -45,7 +45,7 @@ const Login: React.FC = () => {
         <Container>
             <Photo>
                 <div>
-                    <h1 className='title-text'>Portifólio - Yago Fontanez</h1>
+                    <h1 className='title-text'>Portfólio - Yago Fontanez</h1>
                 </div>
                 <LoginButton onClick={handleClickButton} />
                 <p className='text-login'>Por favor, inicie sua sessão</p>

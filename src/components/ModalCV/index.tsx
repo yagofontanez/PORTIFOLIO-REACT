@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { Container } from './style';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-import CV from '../../assets/cv/Curriculo Yago.pdf';
+import cvPortuguese from '../../assets/cv/Curriculo Yago Português.pdf';
+import cvEnglish from '../../assets/cv/Curriculo Yago Inglês.pdf';
 
-const ModalCV: React.FC = () => {
+interface PropsModalCV {
+    language: any;
+}
+
+const ModalCV: React.FC<PropsModalCV> = ({ language }) => {
     const [showPDF, setShowPDF] = useState(false);
 
     const handleShowCV = () => {
@@ -21,13 +26,13 @@ const ModalCV: React.FC = () => {
                     <div className="folder folder_four"></div>
                 </div>
                 <div className="active_line"></div>
-                <span className="text">Currículo</span>
+                <span className="text">{language === 'PT-BR' ? 'Currículo' : 'CV'}</span>
             </button>
 
             {showPDF && (
                 <div className="pdf-viewer">
                     <iframe 
-                        src={CV} 
+                        src={language === 'PT-BR' ? cvPortuguese : cvEnglish} 
                         width="100%" 
                         height="100%"
                         title="Currículo"
